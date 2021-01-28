@@ -1,9 +1,12 @@
-﻿namespace SimpleGameNA21
+﻿using System;
+
+namespace SimpleGameNA21
 {
-    internal class Hero
+    internal class Hero : Creature
     {
-        public Hero()
+        public Hero(Cell cell) : base(cell, "H")
         {
+            Color = ConsoleColor.Yellow;
         }
     }
 }

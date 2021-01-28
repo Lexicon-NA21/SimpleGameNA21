@@ -20,8 +20,10 @@ namespace SimpleGameNA21
 
         private void Initialize()
         {
-            map = new Map(width: 10, height: 10);
-            hero = new Hero();
+            //ToDo Take from config
+            map = new Map(height: 10, width: 10);
+            var heroCell = map.GetCell(0, 0);
+            hero = new Hero(heroCell);
         }
     }
 }
