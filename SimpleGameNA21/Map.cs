@@ -30,8 +30,15 @@ namespace SimpleGameNA21
 
         internal Cell GetCell(int y, int x)
         {
-            //ToDo: Fix
-            return cells[y, x];
+            //ToDo: Refactor
+            try
+            {
+                return cells[y, x];
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
 
     }
