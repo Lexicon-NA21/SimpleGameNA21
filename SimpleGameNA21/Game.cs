@@ -38,11 +38,23 @@ namespace SimpleGameNA21
                 for (int x = 0; x < map.Width; x++)
                 {
                     Cell cell = map.GetCell(y, x);
+                    IDrawable drawable = cell;
 
-                    Console.Write(cell.Symbol);
+                    foreach (var creature in map.Creatures)
+                    {
+                        if(creature.Cell == cell)
+                        {
+                            drawable = creature;
+                            break;
+                        }
+                    }
+
+                    Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
+                    Console.Write(drawable.Symbol);
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void Initialize()
