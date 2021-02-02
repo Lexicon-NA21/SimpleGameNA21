@@ -65,21 +65,8 @@ namespace SimpleGameNA21
         private void DrawMap()
         {
             UI.Clear();
-            for (int y = 0; y < map.Height; y++)
-            {
-                for (int x = 0; x < map.Width; x++)
-                {
-                    Cell cell = map.GetCell(y, x);
-                    IDrawable drawable = cell;
-
-                    drawable = map.Creatures.CreatureAtExtension(cell) ?? cell;
-
-                    Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
-                    Console.Write(drawable.Symbol);
-                }
-                Console.WriteLine();
-            }
-            Console.ForegroundColor = ConsoleColor.White;
+            UI.Draw(map);
+           
         }
 
         private void Initialize()
