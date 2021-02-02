@@ -8,8 +8,8 @@ namespace SimpleGameNA21
     {
         static void Main(string[] args)
         {
-            var list = new LimitedList<int>(6);
-            var number2 = list[1];
+            //var list = new LimitedList<int>(6);
+            //var number2 = list[1];
             //list[2] = 4;
 
             Game game = new Game();

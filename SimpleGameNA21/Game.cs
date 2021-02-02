@@ -49,9 +49,31 @@ namespace SimpleGameNA21
                 case ConsoleKey.DownArrow:
                     Move(Direction.South);
                     break;
+                case ConsoleKey.P:
+                    PickUp();
+                    break;
+                case ConsoleKey.I:
+                    Inventory();
+                    break;
+                case ConsoleKey.Q:
+                    Environment.Exit(0);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void Inventory()
+        {
+            foreach (var item in hero.BackPack)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private void PickUp()
+        {
+            throw new NotImplementedException();
         }
 
         private void Move(Position movement)
@@ -76,6 +98,12 @@ namespace SimpleGameNA21
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
+
+            //ToDo random position
+            map.GetCell(3, 3).Items.Add(Item.Coin());
+            map.GetCell(1, 6).Items.Add(Item.Coin());
+            map.GetCell(6, 7).Items.Add(Item.Torch());
+
         }
     }
 }
