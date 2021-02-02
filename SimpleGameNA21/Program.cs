@@ -7,13 +7,6 @@ namespace SimpleGameNA21
     {
         static void Main(string[] args)
         {
-
-            //string str = "Kalle";
-            //var result =  str.AddWord("Anka");
-
-            //var res2 = "Nisse";
-            //var xx = res2.AddWord("Karlsson");
-
             Game game = new Game();
             game.Run();
 

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGameNA21", "SimpleGameNA21\SimpleGameNA21.csproj", "{EAC7BF8C-F212-47E4-951F-17C7D2E08EBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleGameNA21", "SimpleGameNA21\SimpleGameNA21.csproj", "{EAC7BF8C-F212-47E4-951F-17C7D2E08EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimitedList", "LimitedList\LimitedList.csproj", "{49B9CF74-ED0C-4F5B-B46D-9FF0A8C7B8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EAC7BF8C-F212-47E4-951F-17C7D2E08EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAC7BF8C-F212-47E4-951F-17C7D2E08EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAC7BF8C-F212-47E4-951F-17C7D2E08EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49B9CF74-ED0C-4F5B-B46D-9FF0A8C7B8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49B9CF74-ED0C-4F5B-B46D-9FF0A8C7B8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49B9CF74-ED0C-4F5B-B46D-9FF0A8C7B8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49B9CF74-ED0C-4F5B-B46D-9FF0A8C7B8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
