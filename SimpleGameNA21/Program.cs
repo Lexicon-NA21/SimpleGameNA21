@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LimitedList;
+using System;
 using System.Collections.Generic;
 
 namespace SimpleGameNA21
@@ -7,6 +8,10 @@ namespace SimpleGameNA21
     {
         static void Main(string[] args)
         {
+            var list = new LimitedList<int>(6);
+            var number2 = list[1];
+            //list[2] = 4;
+
             Game game = new Game();
             game.Run();
 
