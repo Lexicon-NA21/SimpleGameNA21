@@ -1,10 +1,24 @@
-﻿using System;
+﻿using LimitedList;
+using System;
 using System.Linq;
 
 namespace SimpleGameNA21
 {
-    internal class UI
+    internal static class UI
     {
+        private static MessageLog<string> messageLog = new MessageLog<string>(6);
+
+        //ToDo Exception...
+        public static void AddMessage(string message) => messageLog.Add(message);
+
+        public static void PrintLog()
+        {
+            foreach (var item in messageLog)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
         internal static void Clear()
         {
             Console.CursorVisible = false;

@@ -8,7 +8,7 @@ namespace LimitedList
     public class LimitedList<T> :  IEnumerable<T>
     {
         private readonly int capacity;
-        private readonly List<T> list;
+        protected readonly List<T> list;
         public int Count => list.Count;
         public bool IsFull => capacity <= Count;
         public T this[int index] => list[index];
@@ -19,7 +19,7 @@ namespace LimitedList
             list = new List<T>(capacity);
         }
 
-        public bool Add(T item)
+        public virtual bool Add(T item)
         {
             if (IsFull || item is null) return false;
             list.Add(item);

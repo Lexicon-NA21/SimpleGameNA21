@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 
 namespace SimpleGameNA21
 {
@@ -65,15 +67,33 @@ namespace SimpleGameNA21
 
         private void Inventory()
         {
-            foreach (var item in hero.BackPack)
+            var builder = new StringBuilder();
+            builder.AppendLine("Inventory: ");
+
+            for (int i = 0; i < hero.BackPack.Count; i++)
             {
-                Console.WriteLine(item);
+                builder.AppendLine($"{i + 1}: \t{hero.BackPack[i]}");
             }
+            UI.AddMessage(builder.ToString());
         }
 
         private void PickUp()
         {
-            throw new NotImplementedException();
+            if (hero.BackPack.IsFull)
+            {
+                UI.AddMessage("BackPack is full");
+                return;
+            }
+
+            var items = hero.Cell.Items;
+            var item = items.FirstOrDefault();
+            if (item is null) return;
+            if (hero.BackPack.Add(item))
+            {
+                UI.AddMessage($"Hero picks up {item}");
+                items.Remove(item);
+            }
+
         }
 
         private void Move(Position movement)
