@@ -13,11 +13,18 @@ namespace SimpleGameNA21
 
         public static void PrintLog()
         {
-            foreach (var item in messageLog)
-            {
-                Console.WriteLine(item);
-            }
+            messageLog.ActionAll(m => Console.WriteLine(m));
         }
+
+        //public static void PrintLog2()
+        //{
+        //    messageLog.ActionAll(Print);
+        //}
+
+        //private static void Print(string message)
+        //{
+        //    Console.WriteLine(message);
+        //}
 
         internal static void Clear()
         {

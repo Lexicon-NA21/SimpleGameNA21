@@ -39,5 +39,10 @@ namespace LimitedList
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        public void ActionAll(Action<T> action)
+        {
+            list.ForEach(m => action?.Invoke(m));
+        }
+
     }
 }

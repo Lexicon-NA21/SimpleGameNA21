@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -51,18 +52,27 @@ namespace SimpleGameNA21
                 case ConsoleKey.DownArrow:
                     Move(Direction.South);
                     break;
-                case ConsoleKey.P:
-                    PickUp();
-                    break;
-                case ConsoleKey.I:
-                    Inventory();
-                    break;
+                //case ConsoleKey.P:
+                //    PickUp();
+                //    break;
+                //case ConsoleKey.I:
+                //    Inventory();
+                //    break;
                 case ConsoleKey.Q:
                     Environment.Exit(0);
                     break;
-                default:
-                    break;
+
             }
+
+            var actionMeny = new Dictionary<ConsoleKey, Action>()
+                    {
+                        {ConsoleKey.P, PickUp },
+                        {ConsoleKey.I, Inventory }
+                    };
+
+            if (actionMeny.ContainsKey(keyPressed))
+                actionMeny[keyPressed]?.Invoke();
+
         }
 
         private void Inventory()
@@ -108,13 +118,14 @@ namespace SimpleGameNA21
         {
             UI.Clear();
             UI.Draw(map);
-           
+            UI.PrintLog();
+
         }
 
         private void Initialize()
         {
             //ToDo Take from config
-            map = new Map(height: 10, width: 10);
+            map = new Map(height: 50, width: 50);
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
