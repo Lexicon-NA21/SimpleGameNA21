@@ -10,6 +10,7 @@ namespace SimpleGameNA21
         {
             Color = ConsoleColor.Yellow;
             BackPack = new LimitedList<Item>(3); //ToDo Read from Config
+            Damage = 100;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace SimpleGameNA21
         internal static void PrintStats(string stats)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(stats);
+            Console.WriteLine(stats + new string(' ', Console.WindowWidth - stats.Length));
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -53,7 +53,7 @@ namespace SimpleGameNA21
                     Cell cell = map.GetCell(y, x);
                    // IDrawable drawable = cell;
 
-                    IDrawable drawable = (map.Creatures.CreatureAtExtension(cell) ?? 
+                    IDrawable drawable = (map.CreatureAt(cell) ?? 
                                          cell.Items.FirstOrDefault())  ?? 
                                          cell;
 

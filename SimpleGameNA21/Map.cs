@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleGameNA21
 {
@@ -39,6 +40,20 @@ namespace SimpleGameNA21
         internal Cell GetCell(Position newPosition)
         {
             return GetCell(newPosition.Y, newPosition.X);
+        }
+
+        internal void Place(Creature creature)
+        {
+            if (Creatures.Where(c => c.Cell == creature.Cell).Count() >= 1)
+                creature = null;
+            else
+                Creatures.Add(creature);
+        }
+
+        //Se CreatureAtExtension
+        public IDrawable CreatureAt(Cell cell)
+        {
+            return Creatures.FirstOrDefault(creature => creature.Cell == cell);
         }
     }
 }

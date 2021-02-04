@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace SimpleGameNA21
     {
         private Map map;
         private Hero hero;
+        private bool gameInProgress;
 
         internal void Run()
         {
@@ -18,7 +20,7 @@ namespace SimpleGameNA21
 
         private void Play()
         {
-            bool gameInProgress = true;
+            gameInProgress = true;
             do
             {
                 //Drawmap
@@ -67,12 +69,26 @@ namespace SimpleGameNA21
             var actionMeny = new Dictionary<ConsoleKey, Action>()
                     {
                         {ConsoleKey.P, PickUp },
-                        {ConsoleKey.I, Inventory }
+                        {ConsoleKey.I, Inventory },
+                        {ConsoleKey.D, Drop }
                     };
 
             if (actionMeny.ContainsKey(keyPressed))
                 actionMeny[keyPressed]?.Invoke();
 
+        }
+
+        private void Drop()
+        {
+            var item = hero.BackPack.FirstOrDefault();
+            if (hero.BackPack.Remove(item))
+            {
+                //map.GetCell(hero.Cell.Position).Items.Add(item);
+                hero.Cell.Items.Add(item);
+                UI.AddMessage($"Hero dropped the {item}");
+            }
+            else
+                UI.AddMessage("Backpack is empty");
         }
 
         private void Inventory()
@@ -111,16 +127,26 @@ namespace SimpleGameNA21
 
             Position newPosition = hero.Cell.Position + movement;
             Cell newCell = map.GetCell(newPosition);
-            if (newCell != null) hero.Cell = newCell;
+
+            var opponent = map.CreatureAt(newCell) as Creature;
+            if (opponent != null) hero.Attack(opponent);
+
+            gameInProgress = !hero.IsDead;
+
+            if (newCell != null)
+            {
+                hero.Cell = newCell;
+                if (newCell.Items.Any())
+                    UI.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
+            }
         }
 
         private void DrawMap()
         {
             UI.Clear();
             UI.Draw(map);
-            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Count}");
+            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
             UI.PrintLog();
-
         }
 
         private void Initialize()
@@ -131,11 +157,36 @@ namespace SimpleGameNA21
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
 
-            //ToDo random position
-            map.GetCell(3, 3).Items.Add(Item.Coin());
-            map.GetCell(1, 6).Items.Add(Item.Coin());
-            map.GetCell(6, 7).Items.Add(Item.Torch());
+            var r = new Random();
 
+            //map.GetCell(2,2).Items.Add(Item.Coin());
+            //map.GetCell(2,2).Items.Add(Item.Coin());
+            map.GetCell(RH(r),RW(r)).Items.Add(Item.Coin());
+            map.GetCell(RH(r),RW(r)).Items.Add(Item.Coin());
+            map.GetCell(RH(r), RW(r)).Items.Add(Item.Torch());
+
+            map.Place(new Orc(map.GetCell(RH(r),RW(r)), 120));
+            map.Place(new Orc(map.GetCell(RH(r),RW(r)), 120));
+            map.Place(new Troll(map.GetCell(RH(r), RW(r)), 160));
+            map.Place(new Troll(map.GetCell(RH(r), RW(r)), 160));
+            map.Place(new Goblin(map.GetCell(RH(r), RW(r)), 200));
+
+            map.Creatures.ForEach(c =>
+            {
+                c.AddMessage = UI.AddMessage;
+                c.AddMessage += m => Debug.WriteLine(m);
+            });
+
+        }
+
+        private int RH(Random random)
+        {
+            return random.Next(0, map.Height);
+        }
+
+        private int RW(Random random)
+        {
+            return random.Next(0, map.Width);
         }
     }
 }
