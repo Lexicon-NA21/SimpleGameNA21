@@ -114,6 +114,15 @@ namespace SimpleGameNA21
             var items = hero.Cell.Items;
             var item = items.FirstOrDefault();
             if (item is null) return;
+
+            if(item is IUsable usable)
+            {
+                usable.Use(hero);
+                hero.Cell.Items.Remove(item);
+                UI.AddMessage($"Hero use the {item}");
+                return;
+            }
+
             if (hero.BackPack.Add(item))
             {
                 UI.AddMessage($"Hero picks up {item}");
@@ -164,6 +173,8 @@ namespace SimpleGameNA21
             map.GetCell(RH(r),RW(r)).Items.Add(Item.Coin());
             map.GetCell(RH(r),RW(r)).Items.Add(Item.Coin());
             map.GetCell(RH(r), RW(r)).Items.Add(Item.Torch());
+            map.GetCell(RH(r), RW(r)).Items.Add(Potion.HealthPortion());
+            map.GetCell(RH(r), RW(r)).Items.Add(Potion.HealthPortion());
 
             map.Place(new Orc(map.GetCell(RH(r),RW(r)), 120));
             map.Place(new Orc(map.GetCell(RH(r),RW(r)), 120));
