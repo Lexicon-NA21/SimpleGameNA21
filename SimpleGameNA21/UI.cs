@@ -13,7 +13,7 @@ namespace SimpleGameNA21
 
         public static void PrintLog()
         {
-            messageLog.ActionAll(m => Console.WriteLine(m));
+            messageLog.ActionAll(m => Console.WriteLine(m + new string(' ' , Console.WindowWidth - m.Length)));
         }
 
         //public static void PrintLog2()
@@ -30,6 +30,13 @@ namespace SimpleGameNA21
         {
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
+        }
+
+        internal static void PrintStats(string stats)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(stats);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         internal static ConsoleKey GetKey()

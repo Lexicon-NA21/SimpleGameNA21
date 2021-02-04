@@ -26,7 +26,7 @@ namespace SimpleGameNA21
                 //Get command
                 GetInput();
                 //execute
-                //Drawmap
+                //Drawmap;
                 //Enemy actions
                 //Drawmap
 
@@ -118,6 +118,7 @@ namespace SimpleGameNA21
         {
             UI.Clear();
             UI.Draw(map);
+            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Count}");
             UI.PrintLog();
 
         }
@@ -125,7 +126,7 @@ namespace SimpleGameNA21
         private void Initialize()
         {
             //ToDo Take from config
-            map = new Map(height: 50, width: 50);
+            map = new Map(height: 10, width: 10);
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
