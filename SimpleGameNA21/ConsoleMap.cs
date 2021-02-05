@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace SimpleGameNA21
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(IConfiguration config)
+        public ConsoleMap(IConfiguration config, IOptions<MapSettings> mapsettings)
         {
+            var h = mapsettings.Value.X;
+
             Width = config.GetMapSizeFor("x");
             Height = config.GetMapSizeFor("y");
             

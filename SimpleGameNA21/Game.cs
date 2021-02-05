@@ -163,7 +163,7 @@ namespace SimpleGameNA21
         private void DrawMap()
         {
             ui.Clear();
-            ui.Draw(map);
+            ui.Draw();
             ui.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
             ui.PrintLog();
         }

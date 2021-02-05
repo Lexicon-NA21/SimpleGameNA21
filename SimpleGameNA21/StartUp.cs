@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LimitedList;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -22,18 +23,11 @@ namespace SimpleGameNA21
             services.AddSingleton(config);
             services.AddSingleton<IMap, ConsoleMap>();
             services.AddSingleton<Game>();
+            services.AddUI(config);
+            services.AddSingleton<ILimitedList<string>>(s => new MessageLog<string>(6));
 
-            var ui = config.GetSection("consolegame:ui").Value;
-
-            switch (ui)
-            {
-                case "console":
-                    services.AddSingleton<IUI, ConsoleUI>();
-                    break;
-                    //Add more options here...
-                default:
-                    break;
-            }
+            // var mapSettings = config.GetSection("consolegame:mapsettings").Get<MapSettings>();
+            services.Configure<MapSettings>(config.GetSection("consolegame:mapsettings").Bind);
         }
 
         private IConfiguration GetConfig()

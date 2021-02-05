@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace LimitedList
 {
-    public class LimitedList<T> :  IEnumerable<T>
+    public class LimitedList<T> :  ILimitedList<T>
     {
         private readonly int capacity;
         protected readonly List<T> list;

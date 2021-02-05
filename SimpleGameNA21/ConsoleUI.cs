@@ -6,7 +6,14 @@ namespace SimpleGameNA21
 {
     internal class ConsoleUI : IUI
     {
-        private MessageLog<string> messageLog = new MessageLog<string>(6);
+        private ILimitedList<string> messageLog;
+        private readonly IMap map;
+
+        public ConsoleUI(ILimitedList<string> messageLog, IMap map)
+        {
+            this.messageLog = messageLog;
+            this.map = map;
+        }
 
         //ToDo Exception...
         public void AddMessage(string message) => messageLog.Add(message);
@@ -44,7 +51,7 @@ namespace SimpleGameNA21
             return Console.ReadKey(intercept: true).Key;
         }
 
-        public void Draw(IMap map)
+        public void Draw()
         {
             for (int y = 0; y < map.Height; y++)
             {

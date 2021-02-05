@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,6 +32,22 @@ namespace SimpleGameNA21
         {
             var section = config.GetSection("consolegame:mapsettings");
             return int.TryParse(section[name], out int result) ? result : 0;
+        } 
+        
+        public static void AddUI(this ServiceCollection services, IConfiguration config)
+        {
+            var ui = config.GetSection("consolegame:ui").Value;
+
+            switch (ui)
+            {
+                case "console":
+                    services.AddSingleton<IUI, ConsoleUI>();
+                    break;
+                //Add more options here...
+                default:
+                    break;
+            }
         }
+
     }
 }
