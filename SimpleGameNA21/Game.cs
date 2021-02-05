@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,9 +9,18 @@ namespace SimpleGameNA21
 {
     internal class Game
     {
-        private Map map;
+        private IUI ui;
+        private IMap map;
         private Hero hero;
         private bool gameInProgress;
+        private IConfiguration config;
+
+        public Game(IConfiguration config, IUI ui, IMap map)
+        {
+            this.config = config;
+            this.ui = ui;
+            this.map = map;
+        }
 
         internal void Run()
         {
@@ -28,7 +38,7 @@ namespace SimpleGameNA21
                 //Get command
                 GetInput();
                 //execute
-                //Drawmap;
+                DrawMap();
                 //Enemy actions
                 //Drawmap
 
@@ -38,7 +48,7 @@ namespace SimpleGameNA21
 
         private void GetInput()
         {
-            var keyPressed = UI.GetKey();
+            var keyPressed = ui.GetKey();
 
             switch (keyPressed)
             {
@@ -85,10 +95,10 @@ namespace SimpleGameNA21
             {
                 //map.GetCell(hero.Cell.Position).Items.Add(item);
                 hero.Cell.Items.Add(item);
-                UI.AddMessage($"Hero dropped the {item}");
+                ui.AddMessage($"Hero dropped the {item}");
             }
             else
-                UI.AddMessage("Backpack is empty");
+                ui.AddMessage("Backpack is empty");
         }
 
         private void Inventory()
@@ -100,14 +110,14 @@ namespace SimpleGameNA21
             {
                 builder.AppendLine($"{i + 1}: \t{hero.BackPack[i]}");
             }
-            UI.AddMessage(builder.ToString());
+            ui.AddMessage(builder.ToString());
         }
 
         private void PickUp()
         {
             if (hero.BackPack.IsFull)
             {
-                UI.AddMessage("BackPack is full");
+                ui.AddMessage("BackPack is full");
                 return;
             }
 
@@ -119,13 +129,13 @@ namespace SimpleGameNA21
             {
                 usable.Use(hero);
                 hero.Cell.Items.Remove(item);
-                UI.AddMessage($"Hero use the {item}");
+                ui.AddMessage($"Hero use the {item}");
                 return;
             }
 
             if (hero.BackPack.Add(item))
             {
-                UI.AddMessage($"Hero picks up {item}");
+                ui.AddMessage($"Hero picks up {item}");
                 items.Remove(item);
             }
 
@@ -146,22 +156,28 @@ namespace SimpleGameNA21
             {
                 hero.Cell = newCell;
                 if (newCell.Items.Any())
-                    UI.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
+                    ui.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
             }
         }
 
         private void DrawMap()
         {
-            UI.Clear();
-            UI.Draw(map);
-            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
-            UI.PrintLog();
+            ui.Clear();
+            ui.Draw(map);
+            ui.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
+            ui.PrintLog();
         }
 
         private void Initialize()
         {
-            //ToDo Take from config
-            map = new Map(height: 10, width: 10);
+            var width = config.GetMapSizeFor("x");
+            var height = config.GetMapSizeFor("y");
+
+            //var width =   int.Parse(config.GetSection("consolegame:mapsettings:x").Value);
+            //var mapSettings = config.GetSection("consolegame:mapsettings");
+            //int.TryParse(mapSettings["y"], out int height);
+
+            map = new ConsoleMap(height, width);
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
@@ -184,7 +200,7 @@ namespace SimpleGameNA21
 
             map.Creatures.ForEach(c =>
             {
-                c.AddMessage = UI.AddMessage;
+                c.AddMessage = ui.AddMessage;
                 c.AddMessage += m => Debug.WriteLine(m);
             });
 

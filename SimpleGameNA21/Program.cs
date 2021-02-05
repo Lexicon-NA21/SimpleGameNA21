@@ -1,4 +1,5 @@
 ﻿using LimitedList;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 
@@ -8,11 +9,17 @@ namespace SimpleGameNA21
     {
         static void Main(string[] args)
         {
-            //var list = new LimitedList<int>(6);
-            //var number2 = list[1];
-            //list[2] = 4;
+            var config = new ConfigurationBuilder()
+                                .SetBasePath(Environment.CurrentDirectory)
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                .Build();
 
-            Game game = new Game();
+            var ui = config.GetSection("consolegame:ui").Value;
+            var x = config.GetSection("consolegame:mapsettings:x").Value;
+            var mapsettings = config.GetSection("consolegame:mapsettings").GetChildren();
+
+
+            Game game = new Game(config);
             game.Run();
 
             List<int> numbers = new List<int>();

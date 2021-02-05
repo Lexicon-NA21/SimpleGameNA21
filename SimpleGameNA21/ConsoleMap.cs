@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SimpleGameNA21
 {
-    internal class Map
+    internal class ConsoleMap : IMap
     {
         private Cell[,] cells;
 
@@ -13,7 +13,7 @@ namespace SimpleGameNA21
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public Map(int height, int width)
+        public ConsoleMap(int height, int width)
         {
             Width = width;
             Height = height;
@@ -30,19 +30,19 @@ namespace SimpleGameNA21
             }
         }
 
-        internal Cell GetCell(int y, int x)
+        public Cell GetCell(int y, int x)
         {
 
             if (x < 0 || x >= Width || y < 0 || y >= Height) return null;
             return cells[y, x];
         }
 
-        internal Cell GetCell(Position newPosition)
+        public Cell GetCell(Position newPosition)
         {
             return GetCell(newPosition.Y, newPosition.X);
         }
 
-        internal void Place(Creature creature)
+        public void Place(Creature creature)
         {
             if (Creatures.Where(c => c.Cell == creature.Cell).Count() >= 1)
                 creature = null;

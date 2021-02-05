@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace SimpleGameNA21
 {
-    internal static class UI
+    internal class ConsoleUI : IUI
     {
-        private static MessageLog<string> messageLog = new MessageLog<string>(6);
+        private MessageLog<string> messageLog = new MessageLog<string>(6);
 
         //ToDo Exception...
-        public static void AddMessage(string message) => messageLog.Add(message);
+        public void AddMessage(string message) => messageLog.Add(message);
 
-        public static void PrintLog()
+        public void PrintLog()
         {
-            messageLog.ActionAll(m => Console.WriteLine(m + new string(' ' , Console.WindowWidth - m.Length)));
+            messageLog.ActionAll(m => Console.WriteLine(m + new string(' ', Console.WindowWidth - m.Length)));
         }
 
         //public static void PrintLog2()
@@ -26,35 +26,35 @@ namespace SimpleGameNA21
         //    Console.WriteLine(message);
         //}
 
-        internal static void Clear()
+        public void Clear()
         {
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
         }
 
-        internal static void PrintStats(string stats)
+        public void PrintStats(string stats)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(stats + new string(' ', Console.WindowWidth - stats.Length));
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        internal static ConsoleKey GetKey()
+        public ConsoleKey GetKey()
         {
             return Console.ReadKey(intercept: true).Key;
         }
 
-        internal static void Draw(Map map)
+        public void Draw(IMap map)
         {
             for (int y = 0; y < map.Height; y++)
             {
                 for (int x = 0; x < map.Width; x++)
                 {
                     Cell cell = map.GetCell(y, x);
-                   // IDrawable drawable = cell;
+                    // IDrawable drawable = cell;
 
-                    IDrawable drawable = (map.CreatureAt(cell) ?? 
-                                         cell.Items.FirstOrDefault())  ?? 
+                    IDrawable drawable = (map.CreatureAt(cell) ??
+                                         cell.Items.FirstOrDefault()) ??
                                          cell;
 
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;

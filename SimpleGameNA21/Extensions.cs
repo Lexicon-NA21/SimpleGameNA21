@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,6 +24,13 @@ namespace SimpleGameNA21
                 }
             }
             return result;
+        }
+
+
+        public static int GetMapSizeFor(this IConfiguration config, string name)
+        {
+            var section = config.GetSection("consolegame:mapsettings");
+            return int.TryParse(section[name], out int result) ? result : 0;
         }
     }
 }
