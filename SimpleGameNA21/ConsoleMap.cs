@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,17 +14,18 @@ namespace SimpleGameNA21
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(int height, int width)
+        public ConsoleMap(IConfiguration config)
         {
-            Width = width;
-            Height = height;
+            Width = config.GetMapSizeFor("x");
+            Height = config.GetMapSizeFor("y");
+            
 
-            cells = new Cell[height, width];
+            cells = new Cell[Height, Width];
 
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     cells[y, x] = new Cell(new Position(y, x));
                 }

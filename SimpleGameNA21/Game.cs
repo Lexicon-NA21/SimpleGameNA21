@@ -15,7 +15,7 @@ namespace SimpleGameNA21
         private bool gameInProgress;
         private IConfiguration config;
 
-        public Game(IConfiguration config, IUI ui, IMap map)
+        public Game(IConfiguration config, IMap map, IUI ui)
         {
             this.config = config;
             this.ui = ui;
@@ -177,7 +177,7 @@ namespace SimpleGameNA21
             //var mapSettings = config.GetSection("consolegame:mapsettings");
             //int.TryParse(mapSettings["y"], out int height);
 
-            map = new ConsoleMap(height, width);
+            //map = new ConsoleMap(height, width);
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
