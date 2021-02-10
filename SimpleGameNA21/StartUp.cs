@@ -1,6 +1,7 @@
 ﻿using LimitedList;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleGameNA21.Services;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -24,6 +25,7 @@ namespace SimpleGameNA21
 
             services.AddSingleton(config);
             services.AddSingleton<IMap, ConsoleMap>();
+            services.AddSingleton<IMapService, MapService>();
             services.AddSingleton<Game>();
             services.AddUI(config);
             services.AddSingleton<ILimitedList<string>>(s => new MessageLog<string>(6));
@@ -38,6 +40,11 @@ namespace SimpleGameNA21
                                 .SetBasePath(Environment.CurrentDirectory)
                                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                                 .Build();
+        }
+
+        public void ThrowException()
+        {
+            throw new ArgumentException();
         }
     }
 }

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\SimpleGameNA21\SimpleGameNA21.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Map\" />
-  </ItemGroup>
-
 </Project>

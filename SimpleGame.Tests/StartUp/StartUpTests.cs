@@ -11,18 +11,18 @@ namespace SimpleGame.Tests.StartUp
     public class StartUpTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        [Ignore]
+        [ExpectedException(typeof(ArgumentException))]
+      //  [Ignore]
         public void ExceptionExample()
         {
+            var startUp = new SimpleGameNA21.StartUp();
             try
             {
-
+                startUp.ThrowException();
             }
-            catch (ArgumentNullException)
+            catch (ArgumentException)
             {
-                return;
-               
+                throw;
             }
         }
 
