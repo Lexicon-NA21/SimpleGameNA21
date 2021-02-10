@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>(Assembly).Tests</_Parameter1>
+      <_Parameter1>SimpleGame.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
