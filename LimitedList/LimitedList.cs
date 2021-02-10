@@ -12,7 +12,7 @@ namespace LimitedList
         public int Count => list.Count;
         public bool IsFull => capacity <= Count;
         public T this[int index] => list[index];
-
+        public int Capacity => capacity;
         public LimitedList(int capacity)
         {
             this.capacity = Math.Max(0, capacity);
