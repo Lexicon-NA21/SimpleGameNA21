@@ -28,11 +28,7 @@ namespace SimpleGameNA21
         }
 
 
-        public static int GetMapSizeFor(this IConfiguration config, string name)
-        {
-            var section = config.GetSection("consolegame:mapsettings");
-            return int.TryParse(section[name], out int result) ? result : 0;
-        } 
+      
         
         public static void AddUI(this ServiceCollection services, IConfiguration config)
         {

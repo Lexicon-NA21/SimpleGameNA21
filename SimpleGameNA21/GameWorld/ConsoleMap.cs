@@ -16,17 +16,17 @@ namespace SimpleGameNA21
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(IMapService settings) // IOptions<MapSettings> mapsettings)
+        public ConsoleMap(IConfiguration config) /*IMapService settings)*/ // IOptions<MapSettings> mapsettings)
         {
-            var (width, height) = settings.GetMap();
+            //var (width, height) = settings.GetMap();
             //var width = mapsettings.Value.X;
             //var height = mapsettings.Value.Y;
 
-            Width = width;
-            Height = height;
+            //Width = width;
+            //Height = height;
 
-            //Width = config.GetMapSizeFor("x");
-            //Height = config.GetMapSizeFor("y");
+            Width = config.GetMapSizeFor("x");
+            Height = config.GetMapSizeFor("y");
 
 
             cells = new Cell[Height, Width];
