@@ -5,7 +5,7 @@ using SimpleGameNA21.Services;
 using System;
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("SimpleGame.Tests")]
+//[assembly:InternalsVisibleTo("SimpleGame.Tests")]
 namespace SimpleGameNA21
 {
     internal class StartUp
