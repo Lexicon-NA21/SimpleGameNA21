@@ -19,8 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\" />
-    <Folder Include="MessageLog\" />
     <Folder Include="Map\" />
   </ItemGroup>
 

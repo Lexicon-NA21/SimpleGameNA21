@@ -16,7 +16,7 @@ namespace LimitedList
         public LimitedList(int capacity)
         {
             this.capacity = Math.Max(0, capacity);
-            list = new List<T>(capacity);
+            list = new List<T>(this.capacity);
         }
 
         public virtual bool Add(T item)

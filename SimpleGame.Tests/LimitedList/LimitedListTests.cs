@@ -49,6 +49,28 @@ namespace SimpleGame.Tests.LimitedList
             Assert.IsFalse(tryToAdd);
             Assert.AreEqual(count, expected);
             Assert.AreEqual(actual, expected);
+
+        }  
+        
+        
+        [TestMethod]
+        public void Add_WithNegativeCapacity_CreatesListWithZeroCapacity()
+        {
+            //Arrange
+            const int expected = 0;
+            const int capacity = -10;
+            var list = new LimitedList<int>(capacity);
+
+            //Act
+            var tryToAdd = list.Add(1);
+            int count = list.Count;
+            var actual = list.Capacity;
+
+            //Assert
+            Assert.IsFalse(tryToAdd);
+            Assert.AreEqual(count, expected);
+            Assert.AreEqual(actual, expected);
+        
         }
 
 
@@ -58,7 +80,7 @@ namespace SimpleGame.Tests.LimitedList
         [TestCleanup]
         public void CleanUp()
         {
-            //After each metod
+            list = null;
         }
 
         [ClassCleanup]

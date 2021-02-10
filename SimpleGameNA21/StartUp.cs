@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Runtime.CompilerServices;
 
+[assembly:InternalsVisibleTo("SimpleGame.Tests")]
 namespace SimpleGameNA21
 {
     internal class StartUp
@@ -16,7 +18,7 @@ namespace SimpleGameNA21
             serviceProvider.GetService<Game>().Run();
         }
 
-        private void ConfigureServices(ServiceCollection services)
+        internal void ConfigureServices(ServiceCollection services)
         {
             IConfiguration config = GetConfig();
 
